@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'app/base.html'%}
+{%block body_block%}
+<h1>Employee Edit</h1>
+
+<table class="table table-borderless">
+  <thead class="border-bottom font-weight-bold">
+<th >Emp Id</th>
+<th > Name</th>&nbsp
+<th >Phone</th>
+<th > Email</th>
+<td><a href='http://127.0.0.1:8000/' class="btn btn-outline-success  btn-lg">
+  <i class="glyphicon glyphicon-list-alt"></i> Back to List</a></td>
+<tr>
+  </thead>
+<form  method="post">
+  {%csrf_token%}
+ <td><input type="text" name="empid" value="{{employee.empid}}"></td>
+ <td> <input type="text" name="name" value="{{employee.name}}"></td>
+<td><input type="text" name="phone" value="{{employee.phone}}"></td>
+
+  <td><input type="text" name="email" value="{{employee.email}}"></td>
+  
+  <td><input type="submit" name="" class='btn btn-success btn-lg' value="Update Record"></td>
+</form>
+</tr>
+</table>
+<br>
+<br>
+<div ng-app="myApp" ng-controller="MyController">
+  <div ng-if=[[res]]>
+    <h3 class=[[classStyle]] role="alert" id="alt">[[msg]]</h3>
+  </div>
+</div>
+<script>
+  var myApp = angular.module("myApp", []);
+      myApp.config(function($interpolateProvider) {
+      $interpolateProvider.startSymbol('[[');
+      $interpolateProvider.endSymbol(']]');
+      });
+      myApp.controller("MyController", ["$scope", function($scope) {
+      $scope.msg = "{{msg}}";
+      $scope.classStyle = "{{classStyle}}";
+      $scope.res = "{{res}}"
+      setTimeout(function(){ document.getElementById("alt").style.display = 'none' }, 1000);
+      }]);
+  </script>
+{%endblock%}

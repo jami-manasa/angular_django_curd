@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+ {% extends 'app/base.html'%}
+ {%block body_block%}
+
+<h1 >Employee Details</h1><hr>
+<div ng-app="myApp" ng-controller="MyController">
+    <div ng-if=[[res]]>
+      <h3 class=[[classStyle]] role="alert" id="alt"></h3>
+    </div>
+  </div>
+
+  <table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+<th >Employee Id  </th>
+ <th > Name  </th>
+<th >Phone   </th>
+ <th > Email  </th>
+ <th ></th>
+
+ <td><a href="/create"   class="btn btn-success  btn-lg">
+  <i class="glyphicon glyphicon-plus"></i>Add New Employee</a></td>
+ </thead>
+ {%for emp in employees %}
+ <tr>
+ <td >{{emp.empid}}</td>
+ <td>{{emp.name}}</td>
+ <td>{{emp.phone}}</td>
+<td>{{emp.email}}</td>
+<td>
+<a href="/update/{{emp.id}}" class="btn btn-success  btn-lg">
+  <i class="glyphicon glyphicon-pencil"></i></a>
+
+ <a href="/delete/{{emp.id}}"class="btn btn-danger   btn-lg">  <i class="glyphicon glyphicon-trash"></i> </a>
+</td>
+</tr>
+{%endfor%}
+</table><br>
+
+<script>
+    var myApp = angular.module("myApp", []);
+        myApp.config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+        });
+        myApp.controller("MyController", ["$scope", function($scope) {
+        $scope.msg = "{{msg}}";
+        $scope.classStyle = "{{classStyle}}";
+        $scope.res = "{{res}}"
+        setTimeout(myVar = function(){ document.getElementById("alt").style.display = 'none'
+      }, 3000);
+        }]);
+    </script>
+{%endblock%}
